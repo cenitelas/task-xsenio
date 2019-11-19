@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "author": "",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/cenitelas/task-xsenio.git"
+  },
+  "author": "cenitelas",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",

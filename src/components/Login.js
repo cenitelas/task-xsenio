@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {userLogin} from '../Actions';
-
+import {userLogin} from '../actions/Actions';
+import '../css/Login.css'
 class Login extends Component {
   constructor(props){
       super(props)
     this.state = {
         name: "",
         password: ""
+    }
+  }
+
+  componentDidUpdate(){
+    if(this.props.currentUser && this.props.currentUser.name){
+      this.props.history.push("/");
     }
   }
 
@@ -24,8 +30,8 @@ class Login extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h1>Logon</h1>
+      <form className="login" onSubmit={this.handleSubmit}>
+        <h1>Login</h1>
 
         <label>Username</label>
         <input
@@ -52,4 +58,9 @@ const mapDispatchToProps = dispatch => ({
   userLogin: userInfo => dispatch(userLogin(userInfo))
 })
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = state => {
+  return {currentUser: state.currentUser};
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,0 +1,7 @@
+.signup{
+    margin: 0 auto;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    color: yellow;
+}

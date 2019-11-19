@@ -1,0 +1,18 @@
+.main{
+    height: 97%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: yellow;
+}
+
+.main .count{
+    height: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.main .count *{
+    margin: 10px;
+}

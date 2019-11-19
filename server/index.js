@@ -3,7 +3,8 @@ var morgan     = require("morgan");
 var bodyParser = require("body-parser");
 var jwt        = require("jsonwebtoken");
 var app        = express();
-var userService = require("./user-service");
+var userService = require("./userService");
+var countService = require("./countService");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -40,7 +41,8 @@ app.post('/signup', function(req, res) {
     } else {
         let user = req.body.user;
         user.token = jwt.sign(user, 'shhhhh');
-
+        let count = {userId:user.token, number:0};
+        countService.save(count);
         userService.save(user); 
         res.json({
                 type: true,
@@ -55,6 +57,33 @@ app.get('/me', ensureAuthorized, function(req, res) {
         res.json({
             type: true,
             data: userService.getWithToken(req.token)
+        });
+    }
+});
+
+app.get('/getcount', ensureAuthorized, function(req, res) {
+    if(userService.getWithToken(req.token)){
+        res.json({
+            type: true,
+            data: countService.get(req.token)
+        });
+    }
+});
+
+app.get('/getcountnext', ensureAuthorized, function(req, res) {
+    if(userService.getWithToken(req.token)){
+        res.json({
+            type: true,
+            data: countService.getNext(req.token)
+        });
+    }
+});
+
+app.get('/getcountincrement', ensureAuthorized, function(req, res) {
+    if(userService.getWithToken(req.token)){
+        res.json({
+            type: true,
+            data: countService.increment(req.token)
         });
     }
 });

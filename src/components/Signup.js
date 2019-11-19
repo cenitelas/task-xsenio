@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {userPost} from '../Actions';
+import {userPost} from '../actions/Actions';
+import '../css/Signup.css'
 
 class Signup extends Component {
   constructor(props){
@@ -11,6 +12,12 @@ class Signup extends Component {
     repassword: ""
   }
 }
+
+ componentDidUpdate(){
+  if(this.props.currentUser && this.props.currentUser.name){
+   this.props.history.push("/");
+  }
+  }
 
   handleChange = event => {
     this.setState({
@@ -31,7 +38,7 @@ class Signup extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="signup" onSubmit={this.handleSubmit}>
         <h1>Sign Up</h1>
 
         <label>Username</label>
@@ -66,4 +73,8 @@ const mapDispatchToProps = dispatch => ({
   userPost: userInfo => dispatch(userPost(userInfo))
 })
 
-export default connect(null, mapDispatchToProps)(Signup);
+const mapStateToProps = state => {
+  return {currentUser: state.currentUser};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
